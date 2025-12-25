@@ -14,6 +14,7 @@ import { useMovieStore } from '@/store/movieStore';
 import CustomPagination from '@/components/custom-pagination';
 import Search from '@/components/search';
 import type { MovieCreateInput } from '@/types/movie';
+import axios from 'axios';
 
 const Page = () => {
   const queryClient = useQueryClient();
@@ -39,7 +40,11 @@ const Page = () => {
       });
     },
     onError: (err) => {
-      toast.error('Failed to add movie!', {
+      const msg =
+        axios.isAxiosError(err) && err.response?.data?.error
+          ? String(err.response.data.error)
+          : 'Failed to add movie!';
+      toast.error(msg, {
         className: `${GeistMono.className}`,
       });
       console.error(err);

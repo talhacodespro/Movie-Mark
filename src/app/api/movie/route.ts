@@ -69,6 +69,21 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
   try {
     const body = await req.json();
+    const existing = await db.query.movieTable.findFirst({
+      where: and(
+        eq(movieTable.userId, Number(body.userId)),
+        ilike(movieTable.name, body.name)
+      ),
+    });
+    if (existing) {
+      return Response.json(
+        {
+          status: 'error',
+          error: 'Movie name already exists',
+        },
+        { status: 409 }
+      );
+    }
     await db.insert(movieTable).values(body);
     return Response.json({
       status: 'success',

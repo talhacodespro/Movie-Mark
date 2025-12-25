@@ -2,6 +2,15 @@
 
 import { cn } from '@/lib/utils';
 import { CircleUserRound, Clapperboard, Tv } from 'lucide-react';
+import {
+  IconDeviceTv,
+  IconDeviceTvFilled,
+  IconDeviceTvOld,
+  IconDeviceTvOldFilled,
+  IconUser,
+  IconUserFilled,
+} from '@tabler/icons-react';
+
 import { Link } from 'next-view-transitions';
 import { usePathname } from 'next/navigation';
 
@@ -9,9 +18,24 @@ const clickSound =
   typeof Audio !== 'undefined' ? new Audio('/sounds/click.mp3') : null;
 
 const menuList = [
-  { title: 'Movie', icon: Clapperboard, href: '/movie' },
-  { title: 'Series', icon: Tv, href: '/series' },
-  { title: 'Profile', icon: CircleUserRound, href: '/profile' },
+  {
+    title: 'Movie',
+    icon: IconDeviceTv,
+    activeIcon: IconDeviceTvFilled,
+    href: '/movie',
+  },
+  {
+    title: 'Series',
+    icon: IconDeviceTvOld,
+    activeIcon: IconDeviceTvOldFilled,
+    href: '/series',
+  },
+  {
+    title: 'Profile',
+    icon: IconUser,
+    activeIcon: IconUserFilled,
+    href: '/profile',
+  },
 ];
 
 const BottomNavigation = () => {
@@ -33,9 +57,9 @@ const BottomNavigation = () => {
               onClick={handleClick}
               className={cn(
                 'flex flex-col gap-y-1 items-center text-neutral-500',
-                isActive && 'text-secondary-foreground'
+                isActive && 'text-black dark:text-white'
               )}>
-              <item.icon />
+              {isActive ? <item.activeIcon /> : <item.icon />}
               {item.title}
             </Link>
           </li>
