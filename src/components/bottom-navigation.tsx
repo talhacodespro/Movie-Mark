@@ -1,7 +1,6 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { CircleUserRound, Clapperboard, Tv } from 'lucide-react';
 import {
   IconDeviceTv,
   IconDeviceTvFilled,
