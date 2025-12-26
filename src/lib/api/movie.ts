@@ -10,12 +10,8 @@ type MovieGetParams = {
 };
 
 export const moviePost = async (movie: MovieCreateInput) => {
-  try {
-    const res = await api.post('/movie', movie);
-    return res.data;
-  } catch (err) {
-    throw err;
-  }
+  const res = await api.post('/movie', movie);
+  return res.data;
 };
 
 export const movieGet = async (params: MovieGetParams) => {

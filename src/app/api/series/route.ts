@@ -70,6 +70,21 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
   try {
     const body = await req.json();
+    const existing = await db.query.seriesTable.findFirst({
+      where: and(
+        eq(seriesTable.userId, Number(body.userId)),
+        ilike(seriesTable.name, body.name)
+      ),
+    });
+    if (existing) {
+      return Response.json(
+        {
+          status: 'error',
+          error: 'Series name already exists',
+        },
+        { status: 409 }
+      );
+    }
     await db.insert(seriesTable).values(body);
     return Response.json({
       status: 'success',

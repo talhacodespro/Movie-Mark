@@ -47,7 +47,6 @@ const Page = () => {
       toast.error(msg, {
         className: `${GeistMono.className}`,
       });
-      console.error(err);
     },
   });
 

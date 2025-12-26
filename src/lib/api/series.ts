@@ -10,12 +10,8 @@ type SeriesGetParams = {
 };
 
 export const seriesPost = async (series: SeriesCreateInput) => {
-  try {
-    const res = await api.post('/series', series);
-    return res.data;
-  } catch (err) {
-    throw err;
-  }
+  const res = await api.post('/series', series);
+  return res.data;
 };
 
 export const seriesGet = async (params: SeriesGetParams) => {

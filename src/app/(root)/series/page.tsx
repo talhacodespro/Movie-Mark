@@ -14,6 +14,7 @@ import SeriesDialog from './series-dialog';
 import type { SeriesCreateInput } from '@/types/series';
 import { seriesGet, seriesPost, seriesSearch } from '@/lib/api/series';
 import { useSeriesStore } from '@/store/seriesStore';
+import axios from 'axios';
 
 const Page = () => {
   const queryClient = useQueryClient();
@@ -39,10 +40,13 @@ const Page = () => {
       });
     },
     onError: (err) => {
-      toast.error('Failed to add series!', {
+      const msg =
+        axios.isAxiosError(err) && err.response?.data?.error
+          ? String(err.response.data.error)
+          : 'Failed to add series!';
+      toast.error(msg, {
         className: `${GeistMono.className}`,
       });
-      console.error(err);
     },
   });
 
